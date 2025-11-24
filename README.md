@@ -18,13 +18,10 @@ Extension Chrome Manifest V3 pour kiosque tactile qui désactive la sélection d
 ├── manifest.json    # Manifest V3 de l'extension
 ├── content.css      # Styles CSS injectés sur toutes les pages
 ├── content.js       # Script JavaScript pour bloquer les événements
-├── start-kiosk.sh   # Script de démarrage en mode kiosk (prêt à l'emploi)
 └── README.md        # Ce fichier
 ```
 
 ## 🚀 Installation
-
-### Méthode 1 : Chargement en mode développeur (Recommandé pour tester)
 
 **Étape 1 : Accéder au gestionnaire d'extensions**
 - Ouvrez Chromium/Chrome
@@ -42,55 +39,6 @@ Extension Chrome Manifest V3 pour kiosque tactile qui désactive la sélection d
 - L'extension apparaît dans la liste avec le nom "Kiosk Touch Protection"
 
 ✅ L'extension est maintenant active sur tous les onglets !
-
-### Méthode 2 : Script de démarrage en mode kiosk (Recommandé pour production)
-
-Utilisez le script `start-kiosk.sh` inclus pour lancer automatiquement Chromium en mode kiosk avec l'extension :
-
-```bash
-# Définissez l'URL de votre kiosk
-export KIOSK_URL="https://votre-site.com"
-
-# Lancez le script
-./start-kiosk.sh
-```
-
-Le script :
-- Détecte automatiquement le navigateur (`chromium-browser`, `chromium` ou `google-chrome`)
-- Charge l'extension avec `--load-extension`
-- Applique toutes les options optimales pour un kiosk tactile
-
-**Note** : L'extension doit être dans le dossier pour être chargée. Le mode développeur n'est pas nécessaire avec `--load-extension`.
-
-### Méthode 3 : Ligne de commande manuelle (Mode Kiosk)
-
-Pour lancer Chromium directement en mode kiosk avec l'extension :
-
-```bash
-chromium-browser \
-  --kiosk \
-  --no-first-run \
-  --disable-infobars \
-  --load-extension=/chemin/absolu/vers/chromium-kiosk-disable-text-selection-and-content-drag \
-  --app=https://votre-site.com
-```
-
-⚠️ **Important** : Utilisez le **chemin absolu** vers le dossier de l'extension.
-
-## 🔧 Options de ligne de commande supplémentaires
-
-Pour un kiosk robuste, ajoutez ces options :
-
-```bash
---start-fullscreen              # Démarre en plein écran
---disable-pinch                 # Désactive le zoom par pincement
---overscroll-history-navigation=0  # Désactive la navigation par glissement
---disable-features=TouchpadOverscrollHistoryNavigation  # Désactive navigation tactile
---touch-events=enabled          # Active les événements tactiles
---disable-dev-tools             # Désactive les outils de développement
---disable-translate             # Désactive la traduction automatique
---disable-save-password-bubble  # Désactive l'enregistrement des mots de passe
-```
 
 ## 🧪 Test de l'extension
 
@@ -129,15 +77,6 @@ Applique les styles suivants :
 **Note** : La scrollbar est masquée visuellement par CSS pur, mais le défilement reste entièrement fonctionnel (molette de souris, gestes tactiles, clavier).
 
 ## 🐛 Dépannage
-
-### L'extension ne se charge pas en mode kiosk
-
-Vérifiez que le chemin absolu de l'extension est correct :
-
-```bash
-# Utilisez le chemin absolu complet
---load-extension=/home/user/chromium-kiosk-disable-text-selection-and-content-drag
-```
 
 ### La sélection fonctionne encore sur certains sites
 
