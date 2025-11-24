@@ -167,68 +167,6 @@
   }
 
   /**
-   * Gère l'affichage de la scrollbar selon le dépassement de contenu
-   * Masque si <= 10px de dépassement, affiche sinon
-   */
-  function manageScrollbarVisibility() {
-    const THRESHOLD = 10; // Seuil en pixels
-    let rafId = null;
-
-    function checkAndUpdate() {
-      // Annule la frame précédente si elle existe
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-
-      // Utilise requestAnimationFrame pour éviter les calculs trop fréquents
-      rafId = requestAnimationFrame(function() {
-        const html = document.documentElement;
-
-        if (!html) return;
-
-        // Calcule le dépassement vertical
-        const verticalOverflow = html.scrollHeight - html.clientHeight;
-
-        // Calcule le dépassement horizontal
-        const horizontalOverflow = html.scrollWidth - html.clientWidth;
-
-        // Masque la scrollbar si le dépassement est <= au seuil
-        if (verticalOverflow <= THRESHOLD && horizontalOverflow <= THRESHOLD) {
-          html.classList.add('kiosk-hide-scrollbar');
-        } else {
-          html.classList.remove('kiosk-hide-scrollbar');
-        }
-
-        rafId = null;
-      });
-    }
-
-    // Vérifie au chargement initial
-    checkAndUpdate();
-
-    // Vérifie lors du redimensionnement de fenêtre
-    window.addEventListener('resize', checkAndUpdate, { passive: true });
-
-    // Vérifie avec ResizeObserver pour les changements de taille du contenu
-    if (typeof ResizeObserver !== 'undefined') {
-      const resizeObserver = new ResizeObserver(checkAndUpdate);
-
-      // Observe le body pour les changements de contenu
-      if (document.body) {
-        resizeObserver.observe(document.body);
-      }
-
-      // Observe aussi documentElement
-      resizeObserver.observe(html);
-    }
-
-    // Vérifie après un court délai pour le contenu chargé dynamiquement
-    setTimeout(checkAndUpdate, 100);
-    setTimeout(checkAndUpdate, 500);
-    setTimeout(checkAndUpdate, 1000);
-  }
-
-  /**
    * Surveille les changements du DOM pour les nouveaux éléments
    */
   function observeDOMChanges() {
@@ -259,9 +197,6 @@
 
     // Initialise les écouteurs d'événements
     initEventListeners();
-
-    // Gère la visibilité intelligente de la scrollbar
-    manageScrollbarVisibility();
 
     // Surveille les changements du DOM
     if (document.readyState === 'loading') {

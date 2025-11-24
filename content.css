@@ -62,20 +62,15 @@ body {
   -webkit-overflow-scrolling: touch !important;
 }
 
-/*
- * Masquage conditionnel de la scrollbar
- * Par défaut : scrollbar VISIBLE (comportement navigateur normal)
- * Masquée uniquement si la classe kiosk-hide-scrollbar est ajoutée par JS
- */
-
-/* Masque la scrollbar sur Webkit (Chrome, Edge, Safari) UNIQUEMENT avec la classe */
-html.kiosk-hide-scrollbar::-webkit-scrollbar {
+/* Masque complètement la scrollbar sur tous les navigateurs */
+/* Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
   width: 0px !important;
   height: 0px !important;
   display: none !important;
 }
 
-/* Masque la scrollbar sur Firefox UNIQUEMENT avec la classe */
-html.kiosk-hide-scrollbar {
+/* Firefox */
+* {
   scrollbar-width: none !important;
 }
