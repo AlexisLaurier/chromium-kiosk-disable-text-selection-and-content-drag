@@ -167,74 +167,6 @@
   }
 
   /**
-   * Détecte si la scrollbar est nécessaire (> 10px de dépassement)
-   * et masque/affiche en conséquence
-   */
-  function manageScrollbarVisibility() {
-    const SCROLL_THRESHOLD = 10; // Masquer si moins de 10px de dépassement
-
-    function checkScrollbar() {
-      const html = document.documentElement;
-      const body = document.body;
-
-      if (!html || !body) return;
-
-      // Calcule le dépassement vertical
-      const scrollHeight = Math.max(
-        body.scrollHeight,
-        body.offsetHeight,
-        html.clientHeight,
-        html.scrollHeight,
-        html.offsetHeight
-      );
-      const clientHeight = html.clientHeight;
-      const verticalOverflow = scrollHeight - clientHeight;
-
-      // Calcule le dépassement horizontal
-      const scrollWidth = Math.max(
-        body.scrollWidth,
-        body.offsetWidth,
-        html.clientWidth,
-        html.scrollWidth,
-        html.offsetWidth
-      );
-      const clientWidth = html.clientWidth;
-      const horizontalOverflow = scrollWidth - clientWidth;
-
-      // Masque la scrollbar si le dépassement est inférieur au seuil
-      if (verticalOverflow <= SCROLL_THRESHOLD && horizontalOverflow <= SCROLL_THRESHOLD) {
-        html.classList.add('kiosk-hide-scrollbar');
-        html.classList.remove('kiosk-show-scrollbar');
-      } else {
-        html.classList.remove('kiosk-hide-scrollbar');
-        html.classList.add('kiosk-show-scrollbar');
-      }
-    }
-
-    // Vérifie au chargement
-    checkScrollbar();
-
-    // Vérifie lors du redimensionnement
-    window.addEventListener('resize', checkScrollbar);
-
-    // Vérifie lors du scroll (pour les pages dynamiques)
-    window.addEventListener('scroll', checkScrollbar, { passive: true });
-
-    // Utilise ResizeObserver pour détecter les changements de taille du body
-    if (typeof ResizeObserver !== 'undefined') {
-      const resizeObserver = new ResizeObserver(checkScrollbar);
-      resizeObserver.observe(document.body);
-      resizeObserver.observe(document.documentElement);
-    }
-
-    // Revérifie périodiquement pendant les premières secondes (contenu dynamique)
-    const intervals = [100, 250, 500, 1000, 2000];
-    intervals.forEach(function(delay) {
-      setTimeout(checkScrollbar, delay);
-    });
-  }
-
-  /**
    * Surveille les changements du DOM pour les nouveaux éléments
    */
   function observeDOMChanges() {
@@ -265,9 +197,6 @@
 
     // Initialise les écouteurs d'événements
     initEventListeners();
-
-    // Gère la visibilité de la scrollbar
-    manageScrollbarVisibility();
 
     // Surveille les changements du DOM
     if (document.readyState === 'loading') {
