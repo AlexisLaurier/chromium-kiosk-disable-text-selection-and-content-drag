@@ -61,3 +61,35 @@ body {
   overscroll-behavior: none !important;
   -webkit-overflow-scrolling: touch !important;
 }
+
+/* Masque les scrollbars par défaut (sera réactivé par JS si nécessaire) */
+html.kiosk-hide-scrollbar {
+  overflow: hidden !important;
+}
+
+/* Alternative : Masque complètement les scrollbars sur Webkit */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+}
+
+/* Pour Firefox */
+html,
+body {
+  scrollbar-width: none !important;
+}
+
+/* Réactive le scroll si nécessaire (classe ajoutée par JS) */
+html.kiosk-show-scrollbar {
+  overflow: auto !important;
+  scrollbar-width: thin !important;
+}
+
+html.kiosk-show-scrollbar::-webkit-scrollbar,
+body.kiosk-show-scrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  display: block !important;
+}
