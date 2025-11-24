@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Kiosk Touch Protection",
+  "version": "1.0.0",
+  "description": "Désactive la sélection de texte et le drag pour kiosque tactile, tout en préservant la saisie dans les champs de formulaire",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content.css"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%234285f4'/></svg>",
+    "48": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%234285f4'/></svg>",
+    "128": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' fill='%234285f4'/></svg>"
+  }
+}
