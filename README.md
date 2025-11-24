@@ -24,32 +24,28 @@ Extension Chrome Manifest V3 pour kiosque tactile qui désactive la sélection d
 
 ## 🚀 Installation
 
-### Méthode 1 : Chargement en mode développeur
+### Méthode 1 : Chargement en mode développeur (Recommandé pour tester)
 
-1. Ouvrez Chromium/Chrome
-2. Allez dans `chrome://extensions/`
-3. Activez le **Mode développeur** (en haut à droite)
-4. Cliquez sur **Charger l'extension non empaquetée**
-5. Sélectionnez le dossier contenant les fichiers de l'extension
+**Étape 1 : Accéder au gestionnaire d'extensions**
+- Ouvrez Chromium/Chrome
+- Accédez au menu extensions via **une des méthodes suivantes** :
+  - Tapez `chrome://extensions/` dans la barre d'adresse
+  - OU Menu (⋮) → **Extensions** → **Gérer les extensions**
+  - OU Menu (⋮) → **Plus d'outils** → **Extensions**
 
-### Méthode 2 : Ligne de commande (Mode Kiosk)
+**Étape 2 : Activer le mode développeur**
+- En haut à droite de la page, activez le bouton **Mode développeur**
 
-Pour lancer Chromium directement en mode kiosk avec l'extension chargée :
+**Étape 3 : Charger l'extension**
+- Cliquez sur le bouton **Charger l'extension non empaquetée** (apparaît après activation du mode développeur)
+- Sélectionnez le dossier `chromium-kiosk-disable-text-selection-and-content-drag`
+- L'extension apparaît dans la liste avec le nom "Kiosk Touch Protection"
 
-```bash
-chromium-browser \
-  --kiosk \
-  --no-first-run \
-  --disable-infobars \
-  --disable-session-crashed-bubble \
-  --disable-features=TranslateUI \
-  --load-extension=/chemin/vers/chromium-kiosk-disable-text-selection-and-content-drag \
-  --app=https://votre-site.com
-```
+✅ L'extension est maintenant active sur tous les onglets !
 
-### Méthode 3 : Script de démarrage automatique (Recommandé)
+### Méthode 2 : Script de démarrage en mode kiosk (Recommandé pour production)
 
-Utilisez le script `start-kiosk.sh` inclus :
+Utilisez le script `start-kiosk.sh` inclus pour lancer automatiquement Chromium en mode kiosk avec l'extension :
 
 ```bash
 # Définissez l'URL de votre kiosk
@@ -59,7 +55,27 @@ export KIOSK_URL="https://votre-site.com"
 ./start-kiosk.sh
 ```
 
-Le script détecte automatiquement le navigateur disponible (`chromium-browser`, `chromium` ou `google-chrome`) et charge l'extension avec toutes les options optimales pour un kiosk tactile.
+Le script :
+- Détecte automatiquement le navigateur (`chromium-browser`, `chromium` ou `google-chrome`)
+- Charge l'extension avec `--load-extension`
+- Applique toutes les options optimales pour un kiosk tactile
+
+**Note** : L'extension doit être dans le dossier pour être chargée. Le mode développeur n'est pas nécessaire avec `--load-extension`.
+
+### Méthode 3 : Ligne de commande manuelle (Mode Kiosk)
+
+Pour lancer Chromium directement en mode kiosk avec l'extension :
+
+```bash
+chromium-browser \
+  --kiosk \
+  --no-first-run \
+  --disable-infobars \
+  --load-extension=/chemin/absolu/vers/chromium-kiosk-disable-text-selection-and-content-drag \
+  --app=https://votre-site.com
+```
+
+⚠️ **Important** : Utilisez le **chemin absolu** vers le dossier de l'extension.
 
 ## 🔧 Options de ligne de commande supplémentaires
 
